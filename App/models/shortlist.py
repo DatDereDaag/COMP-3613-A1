@@ -1,0 +1,33 @@
+from werkzeug.security import check_password_hash, generate_password_hash
+from App.database import db
+
+class Shortlist(db.Model):
+    __tablename__ = 'shortlist'
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
+    internship_id = db.Column(db.Integer, db.ForeignKey('internship.id'))
+    status = db.Column(db.String(100), default="pending")
+    date_added = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+
+
+    def __init__(self, student_id, internship_id, status):
+        self.student_id = student_id
+        self.internship_id = internship_id
+        self.status = status
+
+    def set_password(self, password):
+        """Create hashed password."""
+        self.password = generate_password_hash(password)
+    
+    def check_password(self, password):
+        """Check hashed password."""
+        return check_password_hash(self.password, password)
+
+    def to_json(self):
+        return{
+            'id': self.id,
+            'student_id' : self.student_id,
+            'internship_id' : self.internship_id,
+            'status' : self.status,
+            'date_added' : self.date_added
+        }
