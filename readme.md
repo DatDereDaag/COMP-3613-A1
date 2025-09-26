@@ -14,7 +14,7 @@ You need **Python 3** and **Flask** installed. The project also relies on `click
 
 1.  **Clone the repository** (assuming this code is part of a larger Flask application):
     ```bash
-    git clone [your-repo-link]
+    git clone https://github.com/DatDereDaag/COMP-3613-A1
     cd [your-project-directory]
     ```
 2.  **Set up a virtual environment** (recommended):
@@ -25,10 +25,6 @@ You need **Python 3** and **Flask** installed. The project also relies on `click
 3.  **Install dependencies** (assuming a `requirements.txt` exists that includes Flask, Click, etc.):
     ```bash
     pip install -r requirements.txt
-    ```
-4.  **Set the Flask application environment variable**:
-    ```bash
-    export FLASK_APP=App.main  # Adjust to your main Flask application file
     ```
 
 ## 🛠️ CLI Commands
