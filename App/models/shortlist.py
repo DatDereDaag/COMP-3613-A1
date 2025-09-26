@@ -18,14 +18,6 @@ class Shortlist(db.Model):
         self.student_id = student_id
         self.internship_id = internship_id
 
-    def set_password(self, password):
-        """Create hashed password."""
-        self.password = generate_password_hash(password)
-    
-    def check_password(self, password):
-        """Check hashed password."""
-        return check_password_hash(self.password, password)
-
     def to_json(self):
         return{
             'id': self.id,
