@@ -87,8 +87,24 @@ These commands are prefixed with `flask staff`. They are used by staff members f
 **Example Usage:**
 
 ```bash
-# Create an internship for the employer with ID 1
-flask employer create-internship "Web Dev Intern" "Develop and maintain company website." 1
+# View all available internships
+flask staff view-all-internships
 
-# View all internships posted by employer with ID 1
-flask employer view-internships 1
+# Staff member (ID 2) shortlists student (ID 3) for an internship (will prompt for internship_id)
+flask staff create-shortlist-position 2 3
+```
+
+### Student Commands (Group: `flask staff`)
+
+These commands are prefixed with `flask student`. They are used by staff members for system-wide viewing and creating shortlist entries.
+
+| Command | Description | Arguments |
+| :--- | :--- | :--- |
+| `view-shortlisted-positions` | View all internships for which the student has been shortlisted. | `<student_id>` |
+
+**Example Usage:**
+
+```
+# View shortlisted positions for the student with ID 3
+flask student view-shortlisted-positions 3
+```
