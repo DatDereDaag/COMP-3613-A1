@@ -91,9 +91,9 @@ flask staff create-shortlist-position 2 3
 ```
 ---
 
-### Student Commands (Group: `flask staff`)
+### Student Commands (Group: `flask student`)
 
-These commands are prefixed with `flask student`. They are used by staff members for system-wide viewing and creating shortlist entries.
+These commands are prefixed with `flask student`. They are used by students to view their application and shortlist status.
 
 | Command | Description | Arguments |
 | :--- | :--- | :--- |
