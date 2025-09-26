@@ -19,15 +19,24 @@ class Staff(db.Model):
         """Check hashed password."""
         return check_password_hash(self.password, password)
 
-    def view_all_internships():
-        return Internship.query.all().to_json()
+    def get_all_internships():
+        return Internship.query.all()
     
-    def view_all_students():
-        return Student.query.all().to_json()
+    def get_all_students():
+        return Student.query.all()
     
-    def update_internship_shortlist(self, student_id, internship_id):
+    def create_internship_shortlist_position(self, student_id, internship_id):
         shortlist_postion = Shortlist(student_id=student_id, internship_id=internship_id)
         db.session.add(shortlist_postion)
-        db.session.commit()
-        return shortlist_postion
+        try:
+            db.session.commit()
+            return shortlist_postion
+        except Exception as e:
+            db.session.rollback()
+            print("Error: Student already shortlisted for this position")
+            return None
 
+    def to_json(self):
+        return{
+            'id': self.id
+        }

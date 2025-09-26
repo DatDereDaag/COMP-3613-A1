@@ -3,4 +3,3 @@ from .staff import *
 from .student import *
 from .internship import *
 from .shortlist import *
-from .user import *

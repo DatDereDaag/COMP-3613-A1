@@ -1,5 +1,6 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from App.database import db
+from sqlalchemy import UniqueConstraint
 
 class Shortlist(db.Model):
     __tablename__ = 'shortlist'
@@ -9,11 +10,13 @@ class Shortlist(db.Model):
     status = db.Column(db.String(100), default="pending")
     date_added = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
 
+    __table_args__ = (
+        UniqueConstraint('student_id', 'internship_id', name='uq_student_internship'),
+    )
 
-    def __init__(self, student_id, internship_id, status):
+    def __init__(self, student_id, internship_id):
         self.student_id = student_id
         self.internship_id = internship_id
-        self.status = status
 
     def set_password(self, password):
         """Create hashed password."""
@@ -29,5 +32,5 @@ class Shortlist(db.Model):
             'student_id' : self.student_id,
             'internship_id' : self.internship_id,
             'status' : self.status,
-            'date_added' : self.date_added
+            'date_added' : self.date_added.strftime("%Y-%m-%d %H:%M:%S")
         }

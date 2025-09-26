@@ -22,14 +22,14 @@ class Employer(db.Model):
         """Check hashed password."""
         return check_password_hash(self.password, password)
     
-    def create_internship(self, title, status, description):
-        new_internship = Internship(title=title, status=status, description=description, employer_id=self.id)
+    def create_internship(self, title, details):
+        new_internship = Internship(title=title, details=details, employer_id=self.id)
         db.session.add(new_internship)
         db.session.commit()
         return new_internship
     
-    def view_posted_internships(self):
-        return Internship.query.filter_by(employer_id=self.id).all().to_json()
+    def get_posted_internships(self):
+        return Internship.query.filter_by(employer_id=self.id).all()
     
     def delete_internship(self, internship_id):
         internship = Internship.query.filter_by(id=internship_id, employer_id=self.id).first()
@@ -39,21 +39,22 @@ class Employer(db.Model):
             return True
         return False
     
-    def update_internship(self, internship_id, title=None, description=None, status=None):
+    def update_internship(self, internship_id, title=None, details=None, status=None):
         internship = Internship.query.filter_by(id=internship_id, employer_id=self.id).first()
         if internship:
             if title:
                 internship.title = title
-            if description:
-                internship.description = description
+            if details:
+                internship.details = details
             if status:
-                internship.status = status        
+                internship.status = status    
+
             db.session.commit()
             return internship
         return None
     
-    def view_internship_shortlist(self, internship_id):
-        return Shortlist.query.filter_by(internship_id=internship_id).all().to_json()
+    def get_internship_shortlist(self, internship_id):
+        return Shortlist.query.filter_by(internship_id=internship_id).all()
 
     def update_internship_shortlist_status(self, shortlist_id, status):
         shortlist = Shortlist.query.filter_by(id=shortlist_id).first()
@@ -62,3 +63,9 @@ class Employer(db.Model):
             db.session.commit()
             return shortlist
         return None
+    
+    def to_json(self):
+        return{
+            'id': self.id,
+            'company_name': self.company_name
+        }

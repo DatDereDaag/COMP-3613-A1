@@ -25,8 +25,8 @@ class Student(db.Model):
         """Check hashed password."""
         return check_password_hash(self.password, password)
 
-    def view_shortlisted_positions(self):
-        return Shortlist.query.filter_by(student_id = self.student_id).all().to_json()
+    def get_shortlisted_positions(self):
+        return Shortlist.query.filter_by(student_id = self.id).all()
     
     def to_json(self):
         return{
