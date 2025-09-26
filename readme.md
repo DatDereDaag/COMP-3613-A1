@@ -89,6 +89,7 @@ flask staff view-all-internships
 # Staff member (ID 2) shortlists student (ID 3) for an internship (will prompt for internship_id)
 flask staff create-shortlist-position 2 3
 ```
+---
 
 ### Student Commands (Group: `flask staff`)
 
